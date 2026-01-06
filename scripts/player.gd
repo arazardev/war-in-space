@@ -18,6 +18,9 @@ func get_gravity_force()->Vector2:
 	var force_direction = super.get_gravity_force()
 	if Input.is_action_pressed("propulsion"):
 		force_direction = force_direction + spaceship_front
+		$AnimatedSprite2D.play("propulsion")
+	if Input.is_action_just_released("propulsion"):
+		$AnimatedSprite2D.play("default")
 	return force_direction
 
 func shoot():
