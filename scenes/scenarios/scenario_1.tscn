@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://bueasieinnxa4"]
+
+[ext_resource type="PackedScene" uid="uid://caexrq1ihubfk" path="res://scenes/player.tscn" id="1_31ahy"]
+[ext_resource type="PackedScene" uid="uid://qnp2gajtuhvc" path="res://scenes/bullet.tscn" id="2_hwg0g"]
+[ext_resource type="PackedScene" uid="uid://cgofebnrbopgv" path="res://scenes/environment/blackhole.tscn" id="2_mcx4i"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Control2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 512.0
+offset_bottom = 449.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Player" parent="." node_paths=PackedStringArray("gravity_center") instance=ExtResource("1_31ahy")]
+position = Vector2(117, 320)
+gravity_scale = 0.0
+projectile_resource = ExtResource("2_hwg0g")
+gravity_center = NodePath("../Blackhole")
+gravity_force = 10.0
+
+[node name="Blackhole" parent="." instance=ExtResource("2_mcx4i")]
+position = Vector2(245, 227)
+
+[node name="Bullet" parent="." instance=ExtResource("2_hwg0g")]
+position = Vector2(358, 196)
+rotation = 2.073451
