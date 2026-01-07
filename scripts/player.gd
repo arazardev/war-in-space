@@ -4,6 +4,17 @@ extends GravityBody2D
 @export var rotation_speed: int = 5
 @export var projectile_resource: Resource
 
+var can_warp = true
+var warp_coldown = 1
+var warp_timer = 0
+
+var viewport_width:int = 0
+var viewport_height:int = 0
+
+func _ready()->void:
+	viewport_height = ProjectSettings.get_setting("display/window/size/viewport_height")
+	viewport_width = ProjectSettings.get_setting("display/window/size/viewport_width")
+
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	if Input.is_action_pressed("turn_left"):
@@ -12,6 +23,29 @@ func _physics_process(delta: float) -> void:
 		rotate(rotation_speed *delta)
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
+	check_warp_status(delta)
+	check_warp()
+	
+	
+func check_warp_status(delta:float):
+	if !can_warp:
+		warp_timer += delta
+	if warp_timer >= warp_coldown :
+		can_warp = true
+		warp_timer = 0
+		
+
+func check_warp():
+	if position.x > viewport_width:
+		position.x = 0
+	if position.y > viewport_height:
+		position.y = 0
+	if position.x < 0:
+		position.x = viewport_width
+	if position.y < 0:
+		position.y = viewport_height
+	can_warp = false
+	
 
 func get_gravity_force()->Vector2:
 	var spaceship_front = Vector2.UP.rotated(rotation)* propulsion_force

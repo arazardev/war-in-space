@@ -40,4 +40,4 @@ shape = SubResource("RectangleShape2D_3vyb7")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 3)
 sprite_frames = SubResource("SpriteFrames_tuyoq")
-frame_progress = 0.86321306
+frame_progress = 0.38954642
